@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">mobile_final</string>
+    <string name="angle_right"><![CDATA[>]]></string>
+    <string name="danh_sach_bo_mon">Danh sách bộ môn</string>
+    <string name="plus">+</string>
+    <string name="ma_bo_mon">Mã bộ môn</string>
+    <string name="mo_ta">Mô tả</string>
+    <string name="tao_bo_mon">Tạo bộ môn</string>
+    <string name="ten_bo_mon">Tên Bộ Môn</string>
+    <string name="khoa">Khoa</string>
+    <string name="tao">Tạo</string>
+    <string name="huy">Hủy</string>
+    <string name="ma_mon_hoc">Mã môn học</string>
+    <string name="ten_mon_hoc">Tên môn học</string>
+    <string name="bo_mon">Bộ môn</string>
+    <string name="so_tiet">Số tiết</string>
+    <string name="so_tin_chi">Số tín chỉ</string>
+</resources>

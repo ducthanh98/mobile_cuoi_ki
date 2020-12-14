@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#18121F"
+    android:orientation="vertical"
+    tools:context=".TaoBoMon">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:paddingTop="20dp"
+            android:text="@string/ma_mon_hoc"
+            android:textColor="@android:color/white" />
+
+        <EditText
+            android:id="@+id/maMonHoc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxLength="4"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+            android:inputType="textFilter"
+            android:textColor="@android:color/white"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:paddingTop="20dp"
+            android:maxLength="150"
+            android:text="@string/ten_mon_hoc"
+            android:textColor="@android:color/white" />
+
+        <EditText
+            android:id="@+id/tenMonHoc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:textColor="@android:color/white"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:paddingTop="20dp"
+            android:text="@string/bo_mon"
+            android:textColor="@android:color/white" />
+
+        <Spinner
+            android:id="@+id/maBoMon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:paddingTop="20dp"
+            android:maxLength="150"
+            android:text="@string/so_tin_chi"
+            android:textColor="@android:color/white" />
+
+        <EditText
+            android:id="@+id/soTinChi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="numberSigned"
+            android:textColor="@android:color/white"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:paddingTop="20dp"
+            android:maxLength="150"
+            android:text="@string/so_tiet"
+            android:textColor="@android:color/white" />
+
+        <EditText
+            android:id="@+id/soTiet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="numberSigned"
+            android:textColor="@android:color/white"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:paddingTop="20dp"
+            android:text="@string/mo_ta"
+            android:textColor="@android:color/white" />
+
+        <EditText
+            android:id="@+id/moTa"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@android:color/white"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:layout_marginBottom="2dp"
+        android:gravity="center|bottom"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:id="@+id/btnHuy"
+            android:background="@android:color/holo_red_dark"
+            android:text="@string/huy"/>
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:id="@+id/btnTao"
+            android:background="@android:color/holo_green_dark"
+            android:text="@string/tao"/>
+    </LinearLayout>
+
+</LinearLayout>
