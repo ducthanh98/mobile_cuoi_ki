@@ -1,34 +1,31 @@
 <?xml version = "1.0" encoding = "utf-8"?>
-<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-    xmlns:app = "http://schemas.android.com/apk/res-auto"
-    android:layout_width = "match_parent"
-    android:layout_height = "wrap_content"
-    android:padding = "10dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="#18121F"
-    android:orientation="horizontal"
-    android:weightSum = "1">
-    
+    android:padding="10dp">
+
     <TextView
-        android:layout_width="150dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="10dp"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:textColor="@android:color/white"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
         android:text="@string/danh_sach_bo_mon"
+        android:textColor="@android:color/white"
         android:textSize="16sp"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
+
 
     <TextView
         android:id="@+id/tao_bo_mon"
-        android:layout_width="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:textColor="@android:color/white"
+        android:layout_alignParentRight="true"
         android:text="@string/plus"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
-        android:textStyle="bold"
-        />
-    
-</LinearLayout>
+        android:textStyle="bold" />
+
+</RelativeLayout>

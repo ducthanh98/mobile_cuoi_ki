@@ -170,7 +170,7 @@
             android:layout_height="50dp"
             android:id="@+id/btnTao"
             android:background="@android:color/holo_green_dark"
-            android:text="@string/tao"/>
+            android:text="@string/luu"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -37,4 +37,9 @@ public class BoMonTab {
     public void setMoTa(String moTa) {
         this.moTa = moTa;
     }
+
+    @Override
+    public String toString()  {
+        return this.getTenBoMon();
+    }
 }

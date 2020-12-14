@@ -12,19 +12,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fushi.mobile_final.models.BoMonTab;
-import com.fushi.mobile_final.models.KhoaTab;
+import com.fushi.mobile_final.models.MonHocTab;
 
 import java.util.ArrayList;
 
 public class TaoMonHoc extends AppCompatActivity {
-
-
     Spinner spinnerBoMon;
-    DatabaseHelper db ;
+    DatabaseHelper db;
     Button btnTao;
     Button btnHuy;
     EditText txtMaMonHoc;
@@ -39,15 +39,14 @@ public class TaoMonHoc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tao_mon_hoc);
 
-        this.db =  new DatabaseHelper(this);
+        this.db = new DatabaseHelper(this);
         btnTao = findViewById(R.id.btnTao);
         btnHuy = findViewById(R.id.btnHuy);
         txtMaMonHoc = findViewById(R.id.maMonHoc);
         txtTenMonHoc = findViewById(R.id.tenMonHoc);
         txtSoTiet = findViewById(R.id.soTiet);
-        txtTenMonHoc = findViewById(R.id.soTinChi);
+        txtSoTinChi = findViewById(R.id.soTinChi);
         txtMoTa = findViewById(R.id.moTa);
-
 
 
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -59,6 +58,8 @@ public class TaoMonHoc extends AppCompatActivity {
         parent.setContentInsetsAbsolute(0, 0);
 
         this.spinnerBoMon = (Spinner) findViewById(R.id.maBoMon);
+
+        ((TextView) findViewById(R.id.title)).setText("Tạo môn học");
 
         ArrayList<BoMonTab> boMonTabs = this.db.layDanhSachBoMon();
 
@@ -86,63 +87,95 @@ public class TaoMonHoc extends AppCompatActivity {
             }
         });
 
+        Bundle b = getIntent().getExtras();
+        if (b != null){
+            String maMonHoc = (String) b.get("maMonHoc");
+            MonHocTab monHocTab = db.layMonHoc(maMonHoc);
+
+            this.txtMaMonHoc.setText(monHocTab.getMaMonHoc());
+            this.txtMaMonHoc.setEnabled(false);
+
+            this.txtTenMonHoc.setText(monHocTab.getTenMonHoc());
+            for (int position = 0; position < adapter.getCount(); position++) {
+
+                BoMonTab tmp = adapter.getItem(position);
+                if(tmp.getMaBoMon().equals(monHocTab.getMaBoMon())) {
+                    spinnerBoMon.setSelection(position);
+                    break;
+                }
+
+            }
+
+            this.txtSoTinChi.setText(monHocTab.getSoTinChi().toString());
+            this.txtSoTiet.setText(monHocTab.getSoTiet().toString());
+            this.txtMoTa.setText(monHocTab.getMoTa());
+
+
+        }
+
 
     }
 
-    private void taoMonHoc(){
+    private void taoMonHoc() {
         try {
             String txtMaMonHoc = this.txtMaMonHoc.getText().toString();
-            if(txtMaMonHoc.trim().equals("")){
-                Toast.makeText(TaoMonHoc.this,"Mã môn học không được trống",Toast.LENGTH_SHORT).show();
+            if (txtMaMonHoc.trim().equals("")) {
+                Toast.makeText(TaoMonHoc.this, "Mã môn học không được trống", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             String txtTenMonHoc = this.txtTenMonHoc.getText().toString();
-            if(txtTenMonHoc.trim().equals("")){
-                Toast.makeText(TaoMonHoc.this,"Tên môn học không được trống",Toast.LENGTH_SHORT).show();
+            if (txtTenMonHoc.trim().equals("")) {
+                Toast.makeText(TaoMonHoc.this, "Tên môn học không được trống", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            String maBoMon = this.spinnerBoMon.getSelectedItem().toString();
+            BoMonTab boMonTab = (BoMonTab) this.spinnerBoMon.getSelectedItem();
+            String maBoMon = boMonTab.getMaBoMon();
             String moTa = this.txtMoTa.getText().toString();
 
 
             Integer soTinChi = Integer.parseInt(this.txtSoTinChi.getText().toString());
-            if(soTinChi < 1){
-                Toast.makeText(TaoMonHoc.this,"Số tín chỉ không hợp lệ",Toast.LENGTH_SHORT).show();
+            if (soTinChi < 1) {
+                Toast.makeText(TaoMonHoc.this, "Số tín chỉ không hợp lệ", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             Integer soTiet = Integer.parseInt(this.txtSoTiet.getText().toString());
-            if(soTiet < 1){
-                Toast.makeText(TaoMonHoc.this,"Số tiết không hợp lệ",Toast.LENGTH_SHORT).show();
+            if (soTiet < 1) {
+                Toast.makeText(TaoMonHoc.this, "Số tiết không hợp lệ", Toast.LENGTH_SHORT).show();
                 return;
             }
 
 
-            String result = this.db.taoMonHoc(txtMaMonHoc,txtTenMonHoc,maBoMon,soTinChi,soTiet,moTa);
-            Toast.makeText(TaoMonHoc.this,result,Toast.LENGTH_SHORT).show();
+            String result = "";
+            if(this.txtMaMonHoc.isEnabled()){
+                result = this.db.taoMonHoc(txtMaMonHoc, txtTenMonHoc, maBoMon, soTinChi, soTiet, moTa);
+            } else {
+                result =  this.db.capNhatMonHoc(txtMaMonHoc, txtTenMonHoc, maBoMon, soTinChi, soTiet, moTa);
+            }
 
-            if(result == "Thành công"){
+
+            Toast.makeText(TaoMonHoc.this, result, Toast.LENGTH_SHORT).show();
+
+            if (result.equals("Thành công")) {
                 this.troLaiDanhSach();
             }
 
-        }
-        catch (NumberFormatException e){
-            Toast.makeText(TaoMonHoc.this,"Số tín chỉ hoặc số tiết không hợp lệ",Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception e){
-            Log.d("Error",e.getMessage());
+        } catch (NumberFormatException e) {
+            Toast.makeText(TaoMonHoc.this, "Số tín chỉ hoặc số tiết không hợp lệ", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
         }
 
     }
 
-    private void troLaiDanhSach(){
-        Intent intent = new Intent(TaoMonHoc.this,BoMonChiTiet.class);
+    private void troLaiDanhSach() {
+        Intent intent = new Intent(TaoMonHoc.this, DanhSachMonHoc.class);
         startActivity(intent);
     }
 
-    private void xacNhan(){
+    private void xacNhan() {
         AlertDialog.Builder builder = new AlertDialog.Builder(TaoMonHoc.this);
         builder.setCancelable(true);
         builder.setTitle("Xác nhận");

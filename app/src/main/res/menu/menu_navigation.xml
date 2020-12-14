@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item
+        android:id="@+id/bo_mon"
+        android:title="@string/bo_mon"
+        android:icon="@drawable/ic_bo_mon"
+        android:enabled="true"
+        />
+    <item
+        android:id="@+id/mon_hoc"
+        android:title="@string/mon_hoc"
+        android:icon="@drawable/ic_mon_hoc"
+        android:enabled="true"
+        />
 </menu>

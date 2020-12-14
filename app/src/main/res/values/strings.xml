@@ -3,7 +3,6 @@
     <string name="angle_right"><![CDATA[>]]></string>
     <string name="danh_sach_bo_mon">Danh sách bộ môn</string>
     <string name="plus">+</string>
-    <string name="ma_bo_mon">Mã bộ môn</string>
     <string name="mo_ta">Mô tả</string>
     <string name="tao_bo_mon">Tạo bộ môn</string>
     <string name="ten_bo_mon">Tên Bộ Môn</string>
@@ -15,4 +14,11 @@
     <string name="bo_mon">Bộ môn</string>
     <string name="so_tiet">Số tiết</string>
     <string name="so_tin_chi">Số tín chỉ</string>
+    <string name="thong_tin_bo_mon">Thông tin bộ môn</string>
+    <string name="ma_bo_mon">Mã bộ môn</string>
+    <string name="mon_hoc">Môn học</string>
+    <string name="thong_tin_mon_hoc">Thông tin môn học</string>
+    <string name="chinh_sua">Chỉnh sửa</string>
+    <string name="luu">Lưu</string>
+    <string name="xoa">Xóa</string>
 </resources>

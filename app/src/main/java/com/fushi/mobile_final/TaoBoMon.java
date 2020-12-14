@@ -16,7 +16,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fushi.mobile_final.models.BoMonTab;
 import com.fushi.mobile_final.models.KhoaTab;
+import com.fushi.mobile_final.models.MonHocTab;
 
 import java.util.ArrayList;
 
@@ -80,7 +82,29 @@ public class TaoBoMon extends AppCompatActivity {
             }
         });
 
+        Bundle b = getIntent().getExtras();
+        if (b != null){
+            String maBoMon = (String) b.get("maBoMon");
+            BoMonTab boMonTab = db.layBoMon(maBoMon);
 
+            this.txtMaBoMon.setText(boMonTab.getMaBoMon());
+            this.txtMaBoMon.setEnabled(false);
+
+            this.txtTenBoMon.setText(boMonTab.getTenBoMon());
+            for (int position = 0; position < adapter.getCount(); position++) {
+
+                KhoaTab tmp = adapter.getItem(position);
+                if(tmp.getMaKhoa().equals(boMonTab.getMaKhoa())) {
+                    spinnerKhoa.setSelection(position);
+                    break;
+                }
+
+            }
+
+            this.txtMoTa.setText(boMonTab.getMoTa());
+
+
+        }
     }
 
     private void taoBoMon(){
@@ -97,13 +121,20 @@ public class TaoBoMon extends AppCompatActivity {
                return;
            }
 
-           String maKhoa = this.spinnerKhoa.getSelectedItem().toString();
+           KhoaTab khoaTab = (KhoaTab) this.spinnerKhoa.getSelectedItem();
+           String maKhoa = khoaTab.getMaKhoa();
            String moTa = this.txtMoTa.getText().toString();
 
-           String result = this.db.taoBoMon(txtMaBoMon,txtTenBoMon,maKhoa,moTa);
+           String result = "";
+           if(this.txtMaBoMon.isEnabled()){
+               result = this.db.taoBoMon(txtMaBoMon,txtTenBoMon,maKhoa,moTa);
+           } else {
+               result =  this.db.capNhatBoMon(txtMaBoMon,txtTenBoMon,maKhoa,moTa);
+           }
+
            Toast.makeText(TaoBoMon.this,result,Toast.LENGTH_SHORT).show();
 
-           if(result == "Thành công"){
+           if(result.equals("Thành công")){
                this.troLaiDanhSach();
            }
 

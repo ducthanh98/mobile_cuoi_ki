@@ -81,6 +81,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return boMonTab;
     }
 
+
+    public KhoaTab layKhoa(String maKhoa) {
+        KhoaTab khoaTab = new KhoaTab();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM KhoaTab WHERE maKhoa = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{maKhoa});
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+
+            khoaTab.setMaKhoa(cursor.getString(cursor.getColumnIndex("maKhoa")));
+            khoaTab.setTenKhoa(cursor.getString(cursor.getColumnIndex("tenKhoa")));
+            khoaTab.setMoTa(cursor.getString(cursor.getColumnIndex("moTa")));
+
+            cursor.moveToNext();
+
+        }
+        cursor.close();
+
+        return khoaTab;
+    }
+
+
+
     public String taoBoMon(String maBonMon, String tenBoMon, String maKhoa, String moTa) {
         SQLiteDatabase dbReader = this.getReadableDatabase();
 
@@ -136,17 +160,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return "Thành công";
     }
 
-    public ArrayList<MonHocTab> layDanhSachMonHoc(String maBoMon) {
+    public ArrayList<MonHocTab> layDanhSachMonHoc() {
         ArrayList<MonHocTab> monHocTabs = new ArrayList<MonHocTab>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM MonHocTab WHERE maBoMon = ?";
-        Cursor cursor = db.rawQuery(query, new String[]{maBoMon});
+        String query = "SELECT * FROM MonHocTab ";
+        Cursor cursor = db.rawQuery(query,null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 
             MonHocTab monHocTab = new MonHocTab();
-            monHocTab.setMaBoMon(cursor.getString(cursor.getColumnIndex("maMonHoc")));
+            monHocTab.setMaMonHoc(cursor.getString(cursor.getColumnIndex("maMonHoc")));
             monHocTab.setTenMonHoc(cursor.getString(cursor.getColumnIndex("tenMonHoc")));
             monHocTab.setMaBoMon(cursor.getString(cursor.getColumnIndex("maBoMon")));
             monHocTab.setSoTinChi(cursor.getInt(cursor.getColumnIndex("soTinChi")));
@@ -163,11 +187,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return monHocTabs;
     }
 
+    public MonHocTab layMonHoc(String maMonHoc) {
+        MonHocTab monHocTab = new MonHocTab();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM MonHocTab WHERE maMonHoc = ?";
+        Cursor cursor = db.rawQuery(query,new String[]{maMonHoc});
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+
+            monHocTab.setMaMonHoc(cursor.getString(cursor.getColumnIndex("maMonHoc")));
+            monHocTab.setTenMonHoc(cursor.getString(cursor.getColumnIndex("tenMonHoc")));
+            monHocTab.setMaBoMon(cursor.getString(cursor.getColumnIndex("maBoMon")));
+            monHocTab.setSoTinChi(cursor.getInt(cursor.getColumnIndex("soTinChi")));
+            monHocTab.setSoTiet(cursor.getInt(cursor.getColumnIndex("soTiet")));
+            monHocTab.setMoTa(cursor.getString(cursor.getColumnIndex("moTa")));
+
+
+            cursor.moveToNext();
+
+        }
+        cursor.close();
+
+        return monHocTab;
+    }
+
     public String taoMonHoc(String maMonHoc, String tenMonHoc, String maBoMon,Integer soTinChi,Integer soTiet, String moTa) {
         SQLiteDatabase dbReader = this.getReadableDatabase();
 
         Cursor cusor = dbReader.rawQuery("SELECT tenMonHoc FROM MonHocTab WHERE maMonHoc = ?", new String[]{maMonHoc});
-        if (cusor.getCount() < 1) {
+        if (cusor.getCount() > 0) {
             cusor.close();
             return "Mã môn học đã tồn tại";
         }
@@ -186,7 +235,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return "Thành công";
     }
 
-    public boolean capNhatMonHoc(String maMonHoc, String tenMonHoc, String maBoMon,Integer soTinChi,Integer soTiet, String moTa) {
+    public String capNhatMonHoc(String maMonHoc, String tenMonHoc, String maBoMon,Integer soTinChi,Integer soTiet, String moTa) {
 
         SQLiteDatabase dbWriter = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -198,8 +247,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("soTiet", soTiet);
         contentValues.put("moTa", moTa);
 
-        dbWriter.update("MonHocTab", contentValues, "maBoMon = ?", new String[]{maMonHoc});
-        return true;
+        dbWriter.update("MonHocTab", contentValues, "maMonHoc = ?", new String[]{maMonHoc});
+        return "Thành công";
     }
 
     public boolean xoaMonHoc(String maMonHoc) {
