@@ -81,6 +81,16 @@ public class TaoBoMon extends AppCompatActivity {
                 TaoBoMon.this.xacNhan();
             }
         });
+        TextView btnBack = (TextView) findViewById(R.id.back);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TaoBoMon.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         Bundle b = getIntent().getExtras();
         if (b != null){
@@ -123,6 +133,10 @@ public class TaoBoMon extends AppCompatActivity {
 
            KhoaTab khoaTab = (KhoaTab) this.spinnerKhoa.getSelectedItem();
            String maKhoa = khoaTab.getMaKhoa();
+           if (maKhoa.trim().equals("")) {
+               Toast.makeText(TaoBoMon.this, "Khoa không hợp lệ", Toast.LENGTH_SHORT).show();
+               return;
+           }
            String moTa = this.txtMoTa.getText().toString();
 
            String result = "";

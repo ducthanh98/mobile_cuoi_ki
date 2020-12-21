@@ -56,6 +56,15 @@ public class BoMonChiTiet extends AppCompatActivity {
 
         Button btnTao = (Button)findViewById(R.id.btnChinhSua);
         Button btnXoa = (Button)findViewById(R.id.btnXoa);
+        TextView btnBack = (TextView) findViewById(R.id.back);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BoMonChiTiet.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnTao.setOnClickListener(new View.OnClickListener() {
             @Override

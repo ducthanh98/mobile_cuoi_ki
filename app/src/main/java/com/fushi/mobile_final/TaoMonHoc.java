@@ -86,7 +86,15 @@ public class TaoMonHoc extends AppCompatActivity {
                 TaoMonHoc.this.xacNhan();
             }
         });
+        TextView btnBack = (TextView) findViewById(R.id.back);
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TaoMonHoc.this,DanhSachMonHoc.class);
+                startActivity(intent);
+            }
+        });
         Bundle b = getIntent().getExtras();
         if (b != null){
             String maMonHoc = (String) b.get("maMonHoc");
@@ -94,6 +102,7 @@ public class TaoMonHoc extends AppCompatActivity {
 
             this.txtMaMonHoc.setText(monHocTab.getMaMonHoc());
             this.txtMaMonHoc.setEnabled(false);
+
 
             this.txtTenMonHoc.setText(monHocTab.getTenMonHoc());
             for (int position = 0; position < adapter.getCount(); position++) {
@@ -132,6 +141,10 @@ public class TaoMonHoc extends AppCompatActivity {
 
             BoMonTab boMonTab = (BoMonTab) this.spinnerBoMon.getSelectedItem();
             String maBoMon = boMonTab.getMaBoMon();
+            if (maBoMon.trim().equals("")) {
+                Toast.makeText(TaoMonHoc.this, "Bộ môn không hợp lệ", Toast.LENGTH_SHORT).show();
+                return;
+            }
             String moTa = this.txtMoTa.getText().toString();
 
 
